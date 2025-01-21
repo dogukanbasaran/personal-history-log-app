@@ -39,19 +39,99 @@ main .container{
     margin: auto;
 }
 
-.input-log{
-    height: 40px;
+.inputs{
     width: 90%;
     max-width: 700px;
-    padding: 1.5%;
+    box-sizing: border-box;
+    position: relative;
+}
 
+.toolBox{
+    display: flex;
+    border: solid 1px var(--PrimaryBorder);
+    border-left: none;
+    border-radius: 0 5px 5px 0;
+    background: var(--SecondaryBgColor);
+    color: var(--PrimaryTxtColor);
+    border: solid 1px var(--WhiteBorder);
+    font-size: 1em;
+    font-weight: 700;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.btn-tools{
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.btn-close-two{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    width: 40px;
+    font-size: 1.25em;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.tools-container{
+    height: 80px;
+    width: 40px;
+}
+
+.closed-toolBox{
+    height: 40px;
+    width: 40px;
+    flex-direction: column;
+    transition: ease-in 300ms;
+}
+
+.opened-toolBox{
+    width: 40px;
+    height: 120px;
+    position: absolute;
+    flex-direction: column;
+    transition: ease-in 300ms;
+}
+
+.input-log{
+    height: 40px;
+    padding: 1.5%;
+    padding-right: 45px;
+    width: 100%;
     outline: none;
     border: solid 1px var(--PrimaryBorder);
+    background: transparent;
     border-radius: 5px;
-
-    font-size: 1.25em;
+    font-size: 1.10em;
     font-weight: 600;
     font-family: var(--SecondaryFont);
+}
+
+.input-date{
+    border: solid 1px var(--PrimaryBorder);
+    border-radius: 0 5px 5px 0;
+    outline: none;
+    right: 0;
+    width: 20%;
+    min-width: 120px;
+    height: 40px;
+
+    font-size: 1.10em;
+    font-weight: 600;
+    font-family: var(--SecondaryFont);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
 }
 
 .log-box{
@@ -59,7 +139,6 @@ main .container{
     max-width: 700px;
     border: 2px solid var(--SecondaryBorder);
     border-radius: 10px;
-
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -70,6 +149,8 @@ main .container{
     display: flex;
     gap: 0;
     font-weight: 600;
+    font-family: var(--SecondaryFont);
+    position: relative;
 }
 
 .log{
@@ -80,7 +161,6 @@ main .container{
     justify-content: space-between;
     gap: 5px;
 }
-
 
 #date-and-time{
     white-space: nowrap;
@@ -115,7 +195,6 @@ main .container{
     width: 100%;
     overflow-wrap: break-word;
     text-align: center;
-    font-family: var(--SecondaryFont);
 }
 
 .btn-expand{
@@ -187,7 +266,6 @@ footer .container{
     width: 25px;
     cursor: pointer;
 }
-
 
 @media screen and (max-width: 600px) {
     html{

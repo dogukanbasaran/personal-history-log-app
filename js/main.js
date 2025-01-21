@@ -1,4 +1,7 @@
 const inputLog = document.querySelector(".input-log");
+const toolBox = document.querySelector(".toolBox");
+const btnTools = document.querySelector(".btn-tools");
+const inputDate = document.querySelector(".input-date");
 const logContainer = document.querySelector(".log-box .container");
 
 
@@ -8,7 +11,8 @@ const createLog = () => {
 
     const dateInfo = document.createElement("span");
     dateInfo.id = "date-and-time";
-    dateInfo.textContent = "January 20, 2025";
+
+    convertDate(dateInfo);
 
     const timeLine = document.createElement("div");
     timeLine.id = "time-line";
@@ -33,12 +37,12 @@ const createLog = () => {
     logContainer.appendChild(log);
 };
 
-const displayError = () => {
+const displayError = (message) => {
     const errorBox = document.createElement("div");
             errorBox.classList.add("errorBox");
             
             const errorMessage = document.createElement("span");
-            errorMessage.textContent = "please write your note.";
+            errorMessage.textContent = `${message}`;
 
             const closeBtn = document.createElement("span");
             closeBtn.classList.add("btn-close");
@@ -59,15 +63,54 @@ const displayError = () => {
             });
 };
 
+const convertDate = (dateInfo) => {
+    const today = new Date();
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    const formattedDate = today.toLocaleDateString('en-US', options);
+
+    if(!inputDate.value){
+       dateInfo.textContent = `
+        ${formattedDate}
+       `
+    }else{
+        const selectedDate = new Date(inputDate.value);
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        const formattedDate = selectedDate.toLocaleDateString('en-US', options); 
+        dateInfo.textContent = `${formattedDate}`  
+    };
+};
+
 inputLog.addEventListener("keypress", (e) =>{
     if(e.key === "Enter"){
 
         if(inputLog.value!==""){
-            createLog();
+            if(inputLog.value.length > 200){
+                displayError("You exceeded 200 chars!");
+            }else{
+                createLog();
+            }
             inputLog.value = "";
         }else{
-            displayError();
+            displayError("Please write your log.");
         }
         
     }
-})
+});
+
+btnTools.addEventListener("click", () => {
+    toolBox.classList.replace("closed-toolBox","opened-toolBox");
+    const toolsContainer = document.createElement("div");
+    toolsContainer.classList.add("tools-container");
+
+    const btnClose = document.createElement("span");
+    btnClose.classList.add("btn-close-two");
+    btnClose.innerHTML = `<i class="fa-solid fa-xmark"></i>`;
+    btnClose.addEventListener("click", () => {
+        toolsContainer.remove();
+        toolBox.classList.replace("opened-toolBox", "closed-toolBox");
+        btnClose.replaceWith(btnTools);
+    });
+    btnTools.replaceWith(btnClose);
+    toolBox.appendChild(toolsContainer);
+    toolBox.insertBefore(toolsContainer, btnClose);
+});
